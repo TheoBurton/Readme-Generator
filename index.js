@@ -1,11 +1,10 @@
-const fs = require("fs");
-const path = require('path');
-const inquirer = require("inquirer");
-const generateMarkdown = require("./utils/generateMarkdown");
+const fs = require('fs');
+const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown');
 
 // Function to prompt user for information
-const promptUser = () => {
-    inquirer.prompt([
+const promptUser= () => {
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'title',
@@ -55,16 +54,28 @@ const promptUser = () => {
     ]);
 }
 
-promptUser();
+// Function to generate README content
+ const generateReadme = answers => {
+    return generateMarkdown(answers);
+}
 
-// function to write README file
+// Function to write README file
 function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) =>
+        err ? console.error(err) : console.log('README.md generated successfully!')
+    );
 }
 
-// function to initialize program
-function init() {
-
+// Main function
+async function init() {
+    try {
+        const answers = await promptUser();
+        const readmeContent = generateReadme(answers);
+        writeToFile('README.md', readmeContent);
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
 }
 
-// function call to initialize program
+// Run the program
 init();
