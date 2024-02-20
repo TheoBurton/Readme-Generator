@@ -33,7 +33,7 @@ ${data.contributing}
 ${data.tests}
 
 ## Questions
-For additional questions, you can contact me via GitHub (${data.githubUsername}) or email (${data.email}).
+For additional questions, you can contact me via GitHub https://github.com/${data.githubUsername} or email ${data.email}.
 `;
 }
 
